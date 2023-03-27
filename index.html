@@ -1,0 +1,81 @@
+
+<script>
+const mouseURL = "cursor.png" 
+let mouseScale = "scale(50%)" 
+let theta = 0
+let radius = 50
+//randomly changes scale, affecting dispersion pattern of mice - could become a key event
+let scale = 100
+
+  
+
+  
+
+  function createMouse(event){
+    let clientX = event.x
+    let clientY = event.y
+    const mouse = document.createElement('img')
+  	mouse.src = mouseURL
+    mouse.style.transform = mouseScale
+  	document.body.appendChild(mouse)
+    mouse.style.position = 'absolute'
+    mouse.style.left = clientX + 'px'
+    mouse.style.top = clientY + 'px' 
+  } 
+  
+
+  
+  function mouseUpdate(event){
+    let mouseX = event.x
+    let mouseY = event.y
+    let mice = document.body.children
+    
+     function drawMice(){
+        requestAnimationFrame(drawMice)
+        theta += 0.05
+        const orbitX = Math.cos(theta) * radius;
+        const orbitY = Math.sin(theta) * radius;
+        let x = mouseX + orbitX
+        let y = mouseY + orbitY
+        mice.style.postion = 'absolute'
+        mice.style.left = x  + 'px'
+        mice.style.top = y  + 'px' 
+       }
+  }
+    
+    for(let i = 0; i < mice.length; i++){
+       drawMice(mouseX, mouseY)
+    }
+  
+  }
+
+
+
+window.addEventListener('mousemove', mouseUpdate)
+window.addEventListener('mousedown', createMouse)
+
+   // for(let i = 0; i < mice; i++){
+   //    theta += 0.05
+   //    let offset = Math.floor(Math.random() + i)
+   //        if(mice % 2 === 0) {
+   //          radius = Math.cos(theta) * (20 * i);
+   //          console.log("The number is even.");
+   //          const orbitX = Math.cos(theta + (scale * i)) * radius;
+   //          const orbitY = Math.sin(theta + (scale * i)) * radius;
+   //           mouse[i].style.postion = 'absolute'
+   //           mouse[i].style.left = cx + orbitX  + offset + 'px'
+   //           mouse[i].style.top = cy + orbitY + offset + 'px'
+   //      }
+   //      else {
+   //      radius = Math.sin(theta) * (40 * i);
+   //      console.log("The number is odd.");
+   //      const orbitX = Math.cos(theta + (scale * i)) * radius;
+   //  		const orbitY = Math.sin(theta + (scale * i)) * radius;
+   //       mouse[i].style.postion = 'absolute'
+   //       mouse[i].style.left = cx + orbitX  + offset + 'px'
+   //       mouse[i].style.top = cy + orbitY + offset + 'px'
+   //      }
+   //  } 
+
+</script>
+  
