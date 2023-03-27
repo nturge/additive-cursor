@@ -3,56 +3,48 @@
 const mouseURL = "cursor.png" 
 let mouseScale = "scale(50%)" 
 let theta = 0
-let radius = 50
-//randomly changes scale, affecting dispersion pattern of mice - could become a key event
-let scale = 100
+let radius = 100
+const center = {
+  cx : [],
+  cy : []
+}
 
-  
-
-  
-
-  function createMouse(event){
-    let clientX = event.x
-    let clientY = event.y
+   function createMouse(){
     const mouse = document.createElement('img')
   	mouse.src = mouseURL
     mouse.style.transform = mouseScale
   	document.body.appendChild(mouse)
-    mouse.style.position = 'absolute'
-    mouse.style.left = clientX + 'px'
-    mouse.style.top = clientY + 'px' 
   } 
-  
 
-  
-  function mouseUpdate(event){
-    let mouseX = event.x
-    let mouseY = event.y
-    let mice = document.body.children
-    
-     function drawMice(){
-        requestAnimationFrame(drawMice)
-        theta += 0.05
-        const orbitX = Math.cos(theta) * radius;
-        const orbitY = Math.sin(theta) * radius;
-        let x = mouseX + orbitX
-        let y = mouseY + orbitY
-        mice.style.postion = 'absolute'
-        mice.style.left = x  + 'px'
-        mice.style.top = y  + 'px' 
-       }
-  }
-    
-    for(let i = 0; i < mice.length; i++){
-       drawMice(mouseX, mouseY)
+  function drawMouse(){
+    requestAnimationFrame(drawMouse)
+    	let mice = document.body.children
+      let lastX = center.cx[center.cx.length - 1];
+   		let lastY = center.cy[center.cy.length - 1]
+    	theta += 0.05
+    	let x = Math.cos(theta) * radius + lastX
+    	let y = Math.sin(theta) * radius + lastY
+    mice.style.position = 'absolute'
+   	mice.body.children.style.top = y + 'px'
+    mice.body.children.left = x + 'px'
     }
   
+  
+  function updateMouse(event){
+    let clientX = event.x
+    let clientY = event.y 
+    center.cx.push(clientX)
+    center.cy.push(clientY)
+  }
+  
+  function setup(){
+    drawMouse()
   }
 
-
-
-window.addEventListener('mousemove', mouseUpdate)
+window.addEventListener('load', setup)
+window.addEventListener('mousemove', updateMouse)
 window.addEventListener('mousedown', createMouse)
+  
 
    // for(let i = 0; i < mice; i++){
    //    theta += 0.05
