@@ -21,7 +21,6 @@ function animateMouse() {
     mouse.style.left = cx + 'px'  
   // Call animateMouse function recursively using requestAnimationFrame
   requestAnimationFrame(animateMouse);
-  console.log('animateMouse ran')
 }
   
 // Function to update mouse position variables
@@ -43,7 +42,6 @@ function createMouse(){
   mouse.style.position = 'absolute'
   mouse.style.top = y + 'px'
   mouse.style.left = x + 'px'
-  console.log('createMouse ran')
 }
 
 //event listener for createMouse
