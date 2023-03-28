@@ -1,49 +1,71 @@
 
 <script>
 const mouseURL = "cursor.png" 
-let mouseScale = "scale(50%)" 
-let theta = 0
-let radius = 100
-const center = {
-  cx : [],
-  cy : []
+const mouseScale = "scale(50%)"
+let radius = 50;
+let theta = 0;
+// Create global variables to keep track of mouse position
+let x = 0
+let y = 0
+let mouse
+let mouseX
+let mouseY 
+
+
+// Function to update mouse position variables
+function mouseUpdate(event) {
+  mouseX = event.clientX;
+  mouseY = event.clientY;
+  console.log('mouseUpdate ran')
+}
+  
+// Add mousemove event listener to update mouse position variables
+document.addEventListener("mousemove", mouseUpdate);
+  
+//Function to create mouse on mousedown
+function createMouse(){
+  mouse = document.createElement('img');
+  mouse.src = mouseURL
+  document.body.appendChild(mouse);
+  mouse.style.transform = mouseScale
+  mouse.style.position = 'absolute'
+  mouse.style.top = y + 'px'
+  mouse.style.left = x + 'px'
+  console.log('createMouse ran')
 }
 
-   function createMouse(){
-    const mouse = document.createElement('img')
-  	mouse.src = mouseURL
-    mouse.style.transform = mouseScale
-  	document.body.appendChild(mouse)
-  } 
+//event listener for createMouse
+window.addEventListener('mousedown', createMouse);
 
-  function drawMouse(){
-    requestAnimationFrame(drawMouse)
-    	let mice = document.body.children
-      let lastX = center.cx[center.cx.length - 1];
-   		let lastY = center.cy[center.cy.length - 1]
-    	theta += 0.05
-    	let x = Math.cos(theta) * radius + lastX
-    	let y = Math.sin(theta) * radius + lastY
-    mice.style.position = 'absolute'
-   	mice.body.children.style.top = y + 'px'
-    mice.body.children.left = x + 'px'
-    }
-  
-  
-  function updateMouse(event){
-    let clientX = event.x
-    let clientY = event.y 
-    center.cx.push(clientX)
-    center.cy.push(clientY)
-  }
-  
-  function setup(){
-    drawMouse()
-  }
+// Function to animate mouse movement using requestAnimationFrame
+function animateMouse() {
+  // Code for animating mouse movement using mouseX and mouseY global variables
+  theta += 0.05
+  let cx = Math.cos(theta) * radius + mouseX;
+  let cy = Math.sin(theta) * radius + mouseY;
+  mouse.style.position = 'absolute'
+  mouse.style.top = cy + 'px'
+  mouse.style.left = cx + 'px' 
+  // Call animateMouse function recursively using requestAnimationFrame
+  requestAnimationFrame(animateMouse);
+  console.log('animateMouse ran')
+}
 
-window.addEventListener('load', setup)
-window.addEventListener('mousemove', updateMouse)
-window.addEventListener('mousedown', createMouse)
+// Call animateMouse function to start animation loop
+function setup (){
+  animateMouse();
+  console.log('setup ran')
+}
+  
+//event Listener for setup
+window.addEventListener("load", setup())
+
+
+
+
+
+
+
   
 
    // for(let i = 0; i < mice; i++){
