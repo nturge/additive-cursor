@@ -11,16 +11,28 @@ let mouse
 let mouseX
 let mouseY 
 
-
+// Function to animate mouse movement using requestAnimationFrame
+function animateMouse() {
+  // Code for animating mouse movement using mouseX and mouseY global variables
+    theta += 0.05
+    let cx = Math.cos(theta) * radius + mouseX;
+    let cy = Math.sin(theta) * radius + mouseY;
+    mouse.style.top = cy + 'px'
+    mouse.style.left = cx + 'px'  
+  // Call animateMouse function recursively using requestAnimationFrame
+  requestAnimationFrame(animateMouse);
+  console.log('animateMouse ran')
+}
+  
 // Function to update mouse position variables
 function mouseUpdate(event) {
   mouseX = event.clientX;
   mouseY = event.clientY;
-  console.log('mouseUpdate ran')
+  animateMouse()
 }
   
 // Add mousemove event listener to update mouse position variables
-document.addEventListener("mousemove", mouseUpdate);
+window.addEventListener('mousemove', mouseUpdate);
   
 //Function to create mouse on mousedown
 function createMouse(){
@@ -37,20 +49,6 @@ function createMouse(){
 //event listener for createMouse
 window.addEventListener('mousedown', createMouse);
 
-// Function to animate mouse movement using requestAnimationFrame
-function animateMouse() {
-  // Code for animating mouse movement using mouseX and mouseY global variables
-  theta += 0.05
-  let cx = Math.cos(theta) * radius + mouseX;
-  let cy = Math.sin(theta) * radius + mouseY;
-  mouse.style.position = 'absolute'
-  mouse.style.top = cy + 'px'
-  mouse.style.left = cx + 'px' 
-  // Call animateMouse function recursively using requestAnimationFrame
-  requestAnimationFrame(animateMouse);
-  console.log('animateMouse ran')
-}
-
 // Call animateMouse function to start animation loop
 function setup (){
   animateMouse();
@@ -58,38 +56,8 @@ function setup (){
 }
   
 //event Listener for setup
-window.addEventListener("load", setup())
+window.addEventListener('load', setup())
 
-
-
-
-
-
-
-  
-
-   // for(let i = 0; i < mice; i++){
-   //    theta += 0.05
-   //    let offset = Math.floor(Math.random() + i)
-   //        if(mice % 2 === 0) {
-   //          radius = Math.cos(theta) * (20 * i);
-   //          console.log("The number is even.");
-   //          const orbitX = Math.cos(theta + (scale * i)) * radius;
-   //          const orbitY = Math.sin(theta + (scale * i)) * radius;
-   //           mouse[i].style.postion = 'absolute'
-   //           mouse[i].style.left = cx + orbitX  + offset + 'px'
-   //           mouse[i].style.top = cy + orbitY + offset + 'px'
-   //      }
-   //      else {
-   //      radius = Math.sin(theta) * (40 * i);
-   //      console.log("The number is odd.");
-   //      const orbitX = Math.cos(theta + (scale * i)) * radius;
-   //  		const orbitY = Math.sin(theta + (scale * i)) * radius;
-   //       mouse[i].style.postion = 'absolute'
-   //       mouse[i].style.left = cx + orbitX  + offset + 'px'
-   //       mouse[i].style.top = cy + orbitY + offset + 'px'
-   //      }
-   //  } 
 
 </script>
   
