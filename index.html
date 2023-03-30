@@ -14,10 +14,10 @@ let mouseY
 function animateMouse() {
   // Code for animating mouse movement using mouseX and mouseY global variables
     theta += 0.05
-    let cx = Math.cos(theta) * radius + mouseX;
-    let cy = Math.sin(theta) * radius + mouseY;
   if(mice.length > 0){
     for(let i = 0; i < mice.length; i++){
+    let cx = Math.cos(theta) * (radius * i) + mouseX;
+    let cy = Math.sin(theta) * (radius * i) + mouseY;
       mice[i].style.top = cy + 'px'
     	mice[i].style.left = cx + 'px'
     }
