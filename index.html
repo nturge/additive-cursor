@@ -2,13 +2,14 @@
 <script>
 const mouseURL = "cursor.png" 
 const mouseScale = "scale(50%)"
-let radius = 50;
+let radius = 0;
 let theta = 0;
 // Create global variables to keep track of mouse position
 let mouse
 let mice = [];
 let mouseX
 let mouseY 
+let scale = Math.floor(Math.random() * 50)
 
 // Function to animate mouse movement using requestAnimationFrame
 function animateMouse() {
@@ -16,8 +17,9 @@ function animateMouse() {
     theta += 0.05
   if(mice.length > 0){
     for(let i = 0; i < mice.length; i++){
-    let cx = Math.cos(theta) * (radius * i) + mouseX;
-    let cy = Math.sin(theta) * (radius * i) + mouseY;
+    radius = Math.cos(theta) * (20 * i);
+    let cx = Math.cos(theta + (scale * i)) * radius + mouseX;
+    let cy = Math.sin(theta + (scale * i)) * radius + mouseY;
       mice[i].style.top = cy + 'px'
     	mice[i].style.left = cx + 'px'
     }
