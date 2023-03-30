@@ -5,9 +5,8 @@ const mouseScale = "scale(50%)"
 let radius = 50;
 let theta = 0;
 // Create global variables to keep track of mouse position
-let x = 0
-let y = 0
 let mouse
+let mice = [];
 let mouseX
 let mouseY 
 
@@ -17,8 +16,14 @@ function animateMouse() {
     theta += 0.05
     let cx = Math.cos(theta) * radius + mouseX;
     let cy = Math.sin(theta) * radius + mouseY;
-    mouse.style.top = cy + 'px'
-    mouse.style.left = cx + 'px'  
+  if(mice.length > 0){
+    for(let i = 0; i < mice.length; i++){
+      mice[i].style.top = cy + 'px'
+    	mice[i].style.left = cx + 'px'
+    }
+  }else{
+    console.log('there are no mice')
+  }
   // Call animateMouse function recursively using requestAnimationFrame
   requestAnimationFrame(animateMouse);
 }
@@ -27,7 +32,6 @@ function animateMouse() {
 function mouseUpdate(event) {
   mouseX = event.clientX;
   mouseY = event.clientY;
-  animateMouse()
 }
   
 // Add mousemove event listener to update mouse position variables
@@ -40,8 +44,8 @@ function createMouse(){
   document.body.appendChild(mouse);
   mouse.style.transform = mouseScale
   mouse.style.position = 'absolute'
-  mouse.style.top = y + 'px'
-  mouse.style.left = x + 'px'
+  mice.push(mouse) 
+  console.log(mice.length)
 }
 
 //event listener for createMouse
