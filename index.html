@@ -9,7 +9,7 @@ let mouse
 let mice = [];
 let mouseX
 let mouseY 
-let scale = Math.floor(Math.random() * 50)
+let scale = Math.floor(Math.random() * 20)
 
 // Function to animate mouse movement using requestAnimationFrame
 function animateMouse() {
@@ -17,7 +17,7 @@ function animateMouse() {
     theta += 0.05
   if(mice.length > 0){
     for(let i = 0; i < mice.length; i++){
-    radius = Math.cos(theta) * (20 * i);
+    radius = Math.sin(theta) * Math.cos(theta) + ( 10 * i);
     let cx = Math.cos(theta + (scale * i)) * radius + mouseX;
     let cy = Math.sin(theta + (scale * i)) * radius + mouseY;
       mice[i].style.top = cy + 'px'
